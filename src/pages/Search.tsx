@@ -18,7 +18,7 @@ interface Anime {
 const Search = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [animes, setAnimes] = useState<Anime[] | null>(null);
+  const [animes, setAnimes] = useState<Anime[] | null>([]);
   const [totalPage, setTotalPage] = useState(1);
   const query = new URLSearchParams(window.location.search).get("q");
   const queryPage = new URLSearchParams(window.location.search).get("page");
@@ -36,7 +36,6 @@ const Search = () => {
         }&order_by=popularity`
       )
       .then((res) => {
-        console.log(res.data);
         setAnimes(res.data.data);
         setTotalPage(res.data.pagination.last_visible_page);
         setLoading(false);
@@ -46,6 +45,25 @@ const Search = () => {
         setLoading(false);
       });
   };
+
+  if (animes?.length === 0) {
+    return (
+      <div className="min-h-screen max-w-screen bg-gray-800 py-10 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="sm:pl-4 bg-gray-700 rounded-t py-1 px-2">
+            <h1 className="text-xl sm:text- xl text-gray-300">
+              Search Results
+            </h1>
+          </div>
+          <div className="sm:pl-4 rounded-t py-1 px-2 my-5">
+            <h1 className="text-xl sm:text- xl text-gray-300">
+              No results found for your query.
+            </h1>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen max-w-screen bg-gray-800 py-10 px-4 sm:px-6">
