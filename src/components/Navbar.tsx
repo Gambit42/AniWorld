@@ -64,7 +64,6 @@ const Navbar = ({ user }: Props) => {
               display: { xs: "none", md: "flex" },
               flexDirection: "row",
               alignItems: "end",
-              cursor: "pointer",
             }}
           >
             <div className="flex flex-row items-center">
@@ -72,7 +71,7 @@ const Navbar = ({ user }: Props) => {
               <h1 className="text-2xl text-blue-500">Aniworld</h1>
             </div>
             <div className="flex flex-row items-center h-full ml-10">
-              <div onClick={() => navigate("/")}>
+              <div onClick={() => navigate("/")} className="cursor-pointer">
                 <h1 className="text-gray-300 text-xl mr-4">Home</h1>
               </div>
               {user && (
@@ -80,9 +79,6 @@ const Navbar = ({ user }: Props) => {
                   <h1 className="text-gray-300 text-xl mr-4">My Collections</h1>
                 </div>
               )}
-              <div>
-                <h1 className="text-gray-300 text-xl mr-4">Genres</h1>
-              </div>
             </div>
           </Box>
           <div className="flex flex-row">

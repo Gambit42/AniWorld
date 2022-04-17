@@ -34,9 +34,9 @@ const AnimeInfo = ({ user }: Props) => {
   const [anime, setAnime] = useState<Anime | null>();
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
-  const collectionsRef = doc(db, "users", user.uid);
 
   const handleAddToCollection = async () => {
+    const collectionsRef = doc(db, "users", user.uid);
     const selectedAnime = await getDoc(collectionsRef);
 
     try {
@@ -93,21 +93,25 @@ const AnimeInfo = ({ user }: Props) => {
                       src={anime.images.jpg.large_image_url}
                       alt={"anime"}
                     />
-                    <button
-                      className="hidden lg:mt-2 lg:block lg:w-4/5 w-3/5 mx-auto xs:w-auto xs:mx-0 mb-2 px-4 py-2 text-sm  text-white bg-violet-500 rounded hover:bg-violet-400 focus:outline-none focus:shadow-outline"
-                      onClick={handleAddToCollection}
-                    >
-                      Add to collection
-                    </button>
-                  </div>
-                  <div className="w-full">
-                    <div className="flex items-center py-2 xs:py-0">
+                    {user && (
                       <button
-                        className="lg:hidden w-3/5 mx-auto xs:w-auto xs:mx-0 mb-2 px-4 py-2 text-sm  text-white bg-violet-500 rounded hover:bg-violet-400 focus:outline-none focus:shadow-outline"
+                        className="hidden lg:mt-2 lg:block lg:w-4/5 w-3/5 mx-auto xs:w-auto xs:mx-0 mb-2 px-4 py-2 text-sm  text-white bg-violet-500 rounded hover:bg-violet-400 focus:outline-none focus:shadow-outline"
                         onClick={handleAddToCollection}
                       >
                         Add to collection
                       </button>
+                    )}
+                  </div>
+                  <div className="w-full">
+                    <div className="flex items-center py-2 xs:py-0">
+                      {user && (
+                        <button
+                          className="lg:hidden w-3/5 mx-auto xs:w-auto xs:mx-0 mb-2 px-4 py-2 text-sm  text-white bg-violet-500 rounded hover:bg-violet-400 focus:outline-none focus:shadow-outline"
+                          onClick={handleAddToCollection}
+                        >
+                          Add to collection
+                        </button>
+                      )}
                     </div>
                     <div className="mb-1">
                       {anime.title_english ? (
@@ -184,7 +188,7 @@ const AnimeInfo = ({ user }: Props) => {
           <div className="bg-gray-700 px-2 py-1 rounded-t mb-5">
             <h1 className="text-xl sm:text-xl text-gray-300">Upcoming Anime</h1>
           </div>
-          {!loading && <Sidebar />}
+          <Sidebar />
         </div>
       </div>
     </div>

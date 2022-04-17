@@ -47,7 +47,7 @@ const Search = () => {
   };
 
   if (animes?.length === 0) {
-    return (
+    return !loading ? (
       <div className="min-h-screen max-w-screen bg-gray-800 py-10 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="sm:pl-4 bg-gray-700 rounded-t py-1 px-2">
@@ -62,6 +62,8 @@ const Search = () => {
           </div>
         </div>
       </div>
+    ) : (
+      <div className="min-h-screen max-w-screen bg-gray-800 py-10 px-4 sm:px-6"></div>
     );
   }
 
