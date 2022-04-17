@@ -92,15 +92,15 @@ const Drawer = ({ open, setOpen, user }: Props) => {
                 ""
               )}
               {/* <div className="cursor-pointer py-4 px-2 flex flex-col border-b border-gray-500">
-                <h1 className="text-lg text-gray-300">Genres</h1>
-                <div className="pl-2 py-2 grid grid-cols-2 gap-2">
-                  {genres.map((genre) => (
-                    <div key={genre.id}>
-                      <h1 className="text-sm text-gray-300">{genre.name}</h1>
-                    </div>
-                  ))}
-                </div>
-              </div> */}
+                  <h1 className="text-lg text-gray-300">Genres</h1>
+                  <div className="pl-2 py-2 grid grid-cols-2 gap-2">
+                    {genres.map((genre) => (
+                      <div key={genre.id}>
+                        <h1 className="text-sm text-gray-300">{genre.name}</h1>
+                      </div>
+                    ))}
+                  </div>
+                </div> */}
             </div>
             {user ? (
               <div className="mt-10 flex flex-col items-center justify-center">
