@@ -1,7 +1,6 @@
 import { SwipeableDrawer } from "@mui/material";
 import React, { Dispatch, SetStateAction } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import GenreList from "./utils/GenreList";
 import { GiWorld } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
@@ -15,13 +14,13 @@ interface Props {
 
 const Drawer = ({ open, setOpen, user }: Props) => {
   const navigate = useNavigate();
-  const genres = GenreList.sort((a, b) => {
-    if (a.name.toLowerCase() < b.name.toLowerCase()) {
-      return -1;
-    }
+  // const genres = GenreList.sort((a, b) => {
+  //   if (a.name.toLowerCase() < b.name.toLowerCase()) {
+  //     return -1;
+  //   }
 
-    return 0;
-  });
+  //   return 0;
+  // });
 
   const handleSignOut = async () => {
     await signOut(auth);
