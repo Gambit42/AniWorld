@@ -12,7 +12,7 @@ const Home = () => {
             "width=500,height=500"
           );
         }}>
-        hELLO WORLD
+        TEST ON MOBILE
       </h1>
       <div className="min-h-screen max-w-screen bg-gray-800 py-5 px-4">
         <AnimeList />
