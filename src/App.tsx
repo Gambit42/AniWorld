@@ -8,6 +8,7 @@ import WithNav from "./pages/utils/WithNav";
 import Loading from "./pages/utils/Loading";
 import PublicRoute from "./pages/routes/PublicRoute";
 import PrivateRoute from "./pages/routes/PrivateRoute";
+import { ToastContainer } from "react-toastify";
 
 const Home = lazy(() => import("./pages/Home"));
 const Anime = lazy(() => import("./pages/AnimeInfo"));
@@ -104,6 +105,18 @@ const App: React.FC = () => {
         </Route>
         <Route element={<WithoutNav />}></Route>
       </Routes>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Router>
   );
 };

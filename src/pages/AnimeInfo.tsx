@@ -5,6 +5,7 @@ import Sidebar from "../components/Sidebar";
 import { db } from "../config/firebase";
 import { doc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
 import { Skeleton } from "@mui/material";
+import { toast } from "react-toastify";
 
 interface Genre {
   mal_id: number;
@@ -33,16 +34,19 @@ interface Props {
 const AnimeInfo = ({ user }: Props) => {
   const [anime, setAnime] = useState<Anime | null>();
   const [loading, setLoading] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
   const { id } = useParams();
 
   const handleAddToCollection = async () => {
+    setIsAdding(true);
     const collectionsRef = doc(db, "users", user.uid);
     const selectedAnime = await getDoc(collectionsRef);
 
     try {
       for (let collection of selectedAnime.data()?.collections) {
         if (anime?.mal_id === collection.mal_id) {
-          return alert("Already exist");
+          setIsAdding(false);
+          return toast.error("Anime already in the collection!");
         }
       }
       await updateDoc(collectionsRef, {
@@ -53,11 +57,14 @@ const AnimeInfo = ({ user }: Props) => {
         }),
       });
       try {
-        alert("Sucessfully added");
+        setIsAdding(false);
+        toast.success("Successfully added!");
       } catch (err) {
+        setIsAdding(false);
         console.log(err);
       }
     } catch (error) {
+      setIsAdding(false);
       console.log(error);
     }
   };
@@ -95,10 +102,21 @@ const AnimeInfo = ({ user }: Props) => {
                     />
                     {user && (
                       <button
-                        className="hidden lg:mt-2 lg:block lg:w-4/5 w-3/5 mx-auto xs:w-auto xs:mx-0 mb-2 px-4 py-2 text-sm  text-white bg-violet-500 rounded hover:bg-violet-400 focus:outline-none focus:shadow-outline"
+                        className={`hidden lg:mt-2 lg:block lg:w-4/5 w-3/5 mx-auto xs:w-auto xs:mx-0 mb-2 px-4 py-2 text-sm  text-white  rounded  focus:outline-none focus:shadow-outline ${
+                          isAdding
+                            ? "bg-violet-400"
+                            : "bg-violet-500 hover:bg-violet-400"
+                        }`}
                         onClick={handleAddToCollection}
                       >
-                        Add to collection
+                        {isAdding ? (
+                          <div className="flex flex-row space-x-2 items-center justify-center">
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                            <p>Saving</p>
+                          </div>
+                        ) : (
+                          "Add to collection"
+                        )}
                       </button>
                     )}
                   </div>
